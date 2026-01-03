@@ -126,3 +126,13 @@ body {
 .animate-subtle-pulse {
   animation: subtle-pulse 4s ease-in-out infinite;
 }
+
+@keyframes border-spin {
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.animate-border-spin {
+  animation: border-spin 4s linear infinite;
+}
