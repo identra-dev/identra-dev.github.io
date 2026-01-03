@@ -10,7 +10,7 @@ It is a **product credibility surface**.
 
 ---
 
-## 🎯 Purpose
+ Purpose
 
 The landing page exists to:
 
@@ -22,7 +22,7 @@ The landing page exists to:
 
 ---
 
-## 🧱 Page Architecture (UX Strategy)
+ Page Architecture (UX Strategy)
 
 The page is treated as a **single continuous experience**, not stacked static sections.
 
@@ -40,7 +40,7 @@ Layout patterns, typography roles, and motion intensity vary intentionally acros
 
 ---
 
-## 🎨 Design System Summary
+ Design System Summary
 
 ### Color Philosophy
 - Dark, muted base tones
@@ -72,7 +72,7 @@ Typography usage varies by section to signal context and hierarchy.
 
 ---
 
-## 🛠️ Tech Stack (Aligned with Identra Core)
+ Tech Stack (Aligned with Identra Core)
 
 This landing page intentionally uses the **modernized frontend philosophy** of the Identra ecosystem.
 
