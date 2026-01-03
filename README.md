@@ -74,36 +74,34 @@ Typography usage varies by section to signal context and hierarchy.
 
 ## 🛠️ Tech Stack (Aligned with Identra Core)
 
-This landing page intentionally uses the **same frontend philosophy and tooling** as the Identra desktop client to maintain consistency across the ecosystem.
+This landing page intentionally uses the **modernized frontend philosophy** of the Identra ecosystem.
 
 ### Core Framework
-- **Next.js (14+)**
+- **Next.js 16+ (Turbopack)**
   - App Router
   - Static export compatible (`output: 'export'`)
-  - Required for Tauri asset bundling parity
+  - Server Components by default
 
 ### Styling
-- **Tailwind CSS v3.4+**
-  - Utility-first, predictable, scalable
-  - Enables precise control over spacing, color, and typography
-- **shadcn/ui**
-  - Used selectively for base components
-  - Heavily customized (no default styles)
-
-### Animation & Motion
+- **Tailwind CSS v4**
+  - High-performance, compile-time engine
+  - Utility-first architecture
+- **GSAP (GreenSock Animation Platform)**
+  - Powered the "How Identra Works" horizontal scroll experience
+  - Pinned scroll triggers and timeline sequencing
 - **Framer Motion**
-  - Scroll-driven transitions
-  - Section-level animation control
-  - Used sparingly and intentionally
-- **Lenis (optional)**
-  - Smooth scrolling only if performance remains unaffected
+  - Component-level entry/exit animations
+  - Gestural interactions (hover, tap)
+
+### 3D & visual Effects
+- **React Three Fiber (R3F)**
+  - "Secure Core" hero visualization
+  - WebGL-powered ethereal effects
 
 ### Fonts
-- Display Font: `Clash Display` / `General Sans` / `Satoshi`
-- UI Font: `Inter` (SF Pro parity)
-- Mono Font: `JetBrains Mono` / `IBM Plex Mono`
-
-Fonts are loaded locally or via controlled sources to avoid layout shifts.
+- **Display**: `Space Grotesk` (High-tech, editorial)
+- **Body**: `Inter` (Legible, standard)
+- **Mono**: `JetBrains Mono` (Code & technical data)
 
 ### Icons
 - **Lucide React**
