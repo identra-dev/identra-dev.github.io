@@ -42,15 +42,17 @@ export function TextReveal({ text, className = "", delay = 0, duration = 1 }: Te
     const renderContent = () => {
         const words = text.split(" ");
         return words.map((word, wordIndex) => (
-            // Overflow hidden wrapper acts as the "mask"
-            <span key={wordIndex} className="inline-block overflow-hidden align-bottom mr-[0.25em] -mb-2 pb-2">
+            // No overflow mask here: the reveal is opacity + blur + a short rise, so a
+            // mask buys nothing and a fixed-pixel one (pb-2) clips descenders once the
+            // headline gets large — "forgetting" lost its g's at 92px.
+            <span key={wordIndex} className="inline-block mr-[0.28em] last:mr-0">
                 <span
-                    className="word inline-block will-change-transform" // Optimized target
+                    className="word inline-block will-change-transform"
                     style={{
-                        opacity: 0, // Prevent FOUC
-                        whiteSpace: "normal",
+                        opacity: 0, // Prevent FOUC before GSAP takes over
+                        whiteSpace: "pre",
                         backfaceVisibility: "hidden", // Fix jagged edges
-                        WebkitFontSmoothing: "antialiased"
+                        WebkitFontSmoothing: "antialiased",
                     }}
                 >
                     {word}
@@ -60,10 +62,8 @@ export function TextReveal({ text, className = "", delay = 0, duration = 1 }: Te
     };
 
     return (
-        <div ref={containerRef} className={`overflow-hidden ${className}`}>
-            <div className="leading-[1.1]">
-                {renderContent()}
-            </div>
+        <div ref={containerRef} className={className}>
+            <div className="leading-[1.08]">{renderContent()}</div>
         </div>
     );
 }

@@ -1,165 +1,171 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github } from "lucide-react";
+import { Check, Copy, Github } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import { GITHUB_URL, QUICK_START } from "@/lib/site";
+
+/*
+  There are no releases yet, so there is no download button. Build from source is
+  the honest ask. When tauri-action starts publishing .AppImage/.deb/.dmg to a
+  GitHub Release (see identra-ops/DISTRIBUTION.md), swap the primary CTA for it.
+*/
+const REQUIREMENTS = [
+    "Rust + Cargo, the Tauri CLI, bun, and just",
+    "webkitgtk and its build deps (just doctor lists what you're missing)",
+    "codex on your PATH for an agent node to run something",
+];
+
+const FOOTER_LINKS = [
+    { label: "GitHub", href: GITHUB_URL },
+    { label: "Architecture", href: `${GITHUB_URL}/tree/main/docs` },
+    { label: "License", href: `${GITHUB_URL}/blob/main/LICENSE` },
+    { label: "Issues", href: `${GITHUB_URL}/issues` },
+];
 
 export function DownloadFooter() {
     return (
-        <section className="w-full pt-24 pb-8 md:pt-32 md:pb-12 bg-black relative overflow-hidden flex flex-col items-center border-t border-white/[0.05]">
-            {/* Ambient Background - Ultra subtle premium texture */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.03)_0%,transparent_50%)] pointer-events-none" />
+        <section className="w-full pt-24 pb-8 md:pt-32 md:pb-12 bg-background relative overflow-hidden flex flex-col items-center border-t border-border">
+            <div className="absolute inset-0 canvas-grid opacity-30 pointer-events-none" />
 
-            {/* Drifting Nebula 1 - Indigo */}
-            <motion.div
-                className="absolute top-[-20%] left-[20%] w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[120px] mix-blend-screen pointer-events-none"
-                animate={{
-                    x: [0, 50, -50, 0],
-                    y: [0, -30, 30, 0],
-                    scale: [1, 1.1, 0.9, 1],
-                }}
-                transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                }}
-            />
-
-            {/* Drifting Nebula 2 - Teal/Cyan (Complementary) */}
-            <motion.div
-                className="absolute top-[-10%] right-[20%] w-[500px] h-[500px] bg-teal-500/5 rounded-full blur-[100px] mix-blend-screen pointer-events-none"
-                animate={{
-                    x: [0, -30, 30, 0],
-                    y: [0, 50, -50, 0],
-                    scale: [1, 0.9, 1.1, 1],
-                }}
-                transition={{
-                    duration: 25,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 2
-                }}
-            />
-
-            {/* Scanning Beam */}
-            <motion.div
-                className="absolute inset-x-0 h-[200px] bg-gradient-to-b from-transparent via-indigo-500/5 to-transparent pointer-events-none"
-                animate={{ top: ["-20%", "120%"] }}
-                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-            />
-
-            <div className="container px-6 relative z-10 w-full max-w-7xl mx-auto">
-
-                {/* Main Content Split: Text Left, Buttons Right */}
-                <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-12">
-
-                    {/* Left: Headline & Subhead */}
-                    <div className="text-left max-w-2xl">
-                        <motion.h2
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
-                            className="text-5xl md:text-8xl font-medium tracking-tighter text-white mb-6 leading-[0.9]"
-                        >
-                            Start using<br />Identra.
-                        </motion.h2>
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.2, duration: 0.8 }}
-                            className="text-neutral-500 text-xl font-light tracking-wide max-w-md"
-                        >
-                            Your data stays yours. Always. <br />
-                            <span className="text-neutral-700">Enterprise-grade local intelligence.</span>
-                        </motion.p>
-                    </div>
-
-                    {/* Right: Buttons */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.3, duration: 0.6 }}
-                        className="flex flex-col sm:flex-row gap-4 w-full md:w-auto"
-                    >
-                        {/* macOS Button (Primary) - Premium Glass with Shimmer */}
-                        <MagneticButton strength={0.4}>
-                            <button className="group relative flex items-center justify-center gap-4 px-8 py-4 bg-white hover:bg-neutral-200 text-black rounded-full transition-all duration-300 min-w-[200px] shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(255,255,255,0.2)]">
-                                <svg className="w-5 h-5 transition-transform group-hover:scale-110 duration-300" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.61-.91.61.03 2.34.25 3.44 1.86-3.06 1.83-2.56 5.51.53 6.8zM13 3.5c.52-1.47 2.05-2.5 3.52-2.5.55 1.74-2.14 4.58-3.52 2.5z" />
-                                </svg>
-                                <span className="text-base font-semibold tracking-tight">Download for Mac</span>
-                            </button>
-                        </MagneticButton>
-
-                        {/* Windows Button (Secondary) - Clean Wireframe */}
-                        <MagneticButton strength={0.3}>
-                            <button className="group flex items-center justify-center gap-4 px-8 py-4 bg-transparent hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-full transition-all duration-300 min-w-[200px] text-white">
-                                <svg className="w-5 h-5 text-neutral-500 group-hover:text-white transition-colors duration-300" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M0 3.449L9.75 2.1v9.451H0V3.449zm10.949-1.67L24 0v11.4H10.949V1.779zM0 12.6h9.75v9.451L0 20.699V12.6zm10.949 0H24v11.4l-13.051-1.78V12.6z" />
-                                </svg>
-                                <span className="text-neutral-400 group-hover:text-white text-base font-medium transition-colors duration-300">Windows</span>
-                            </button>
-                        </MagneticButton>
-                    </motion.div>
-                </div>
-
-                {/* Premium System Status - Text Only, No Green Dot */}
+            <div className="container px-6 relative z-10 w-full max-w-3xl mx-auto">
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.5, duration: 1 }}
-                    className="mb-12"
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    className="text-center"
                 >
-                    <span className="font-mono text-[11px] text-neutral-600 tracking-[0.2em] uppercase">
-                        Identra OS v1.0 • Secure Enclave Active
-                    </span>
+                    <h2 className="font-display text-3xl md:text-5xl font-normal tracking-tight text-foreground">
+                        Run it on your machine.
+                    </h2>
+                    <p className="mt-5 text-base text-muted-foreground leading-relaxed max-w-xl mx-auto">
+                        No packaged build yet — you build it from source, and it takes a minute the
+                        first time while the Rust side compiles. Linux today, macOS in progress.
+                    </p>
                 </motion.div>
 
-                {/* Divider - Static, Crisp, Premium */}
-                <div className="w-full h-px bg-white/[0.1]" />
+                <QuickStart />
 
-                {/* Footer Links - Expanding to Fill Width */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: 0.6, duration: 0.8 }}
-                    className="w-full pt-10 flex flex-col md:flex-row justify-between items-center"
+                    transition={{ duration: 0.6, delay: 0.15 }}
+                    className="mt-8 flex justify-center"
                 >
-                    {/* Copyright / Left */}
-                    <span className="text-sm text-neutral-600 mb-6 md:mb-0">
-                        © 2025 Identra Inc.
-                    </span>
+                    <MagneticButton strength={0.4}>
+                        <a
+                            href={GITHUB_URL}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex h-12 items-center justify-center rounded-full bg-primary px-8 text-base font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-primary/90"
+                        >
+                            <Github className="mr-2 h-4 w-4" aria-hidden />
+                            View on GitHub
+                        </a>
+                    </MagneticButton>
+                </motion.div>
 
-                    {/* Links - Widespread Spacing */}
-                    <div className="flex gap-12 md:gap-16 items-center">
-                        {["Documentation", "Security", "Contact"].map((link) => (
+                <motion.ul
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="mt-14 space-y-2 text-center"
+                >
+                    <li className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground/60 mb-4">
+                        You&apos;ll need
+                    </li>
+                    {REQUIREMENTS.map((req) => (
+                        <li key={req} className="text-sm text-muted-foreground/80">
+                            {req}
+                        </li>
+                    ))}
+                </motion.ul>
+            </div>
+
+            {/* Footer — quiet exit */}
+            <footer className="relative z-10 mt-24 w-full max-w-5xl px-6">
+                <div className="flex flex-col items-center gap-6 border-t border-border pt-8 sm:flex-row sm:justify-between">
+                    <div className="flex items-center gap-2.5">
+                        <Image src="/identra.svg" alt="" width={22} height={22} className="rounded-md" />
+                        <span className="font-display text-sm font-medium text-foreground">Identra</span>
+                        <span className="font-mono text-[10px] text-muted-foreground/60">Apache-2.0</span>
+                    </div>
+
+                    <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+                        {FOOTER_LINKS.map((link) => (
                             <a
-                                key={link}
-                                href="#"
-                                className="text-sm text-neutral-500 hover:text-white transition-colors duration-300 relative group"
+                                key={link.label}
+                                href={link.href}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
                             >
-                                {link}
-                                <span className="absolute -bottom-1 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full opacity-0 group-hover:opacity-100" />
+                                {link.label}
                             </a>
                         ))}
-                    </div>
-
-                    {/* Right: GitHub - Subtle */}
-                    <a
-                        href="#"
-                        className="text-neutral-600 hover:text-white transition-all duration-300 md:ml-0 mt-6 md:mt-0 p-2 hover:bg-white/5 rounded-full"
-                        aria-label="GitHub"
-                    >
-                        <Github className="w-5 h-5" />
-                    </a>
-                </motion.div>
-
-            </div>
+                    </nav>
+                </div>
+            </footer>
         </section>
+    );
+}
+
+function QuickStart() {
+    const [copied, setCopied] = useState(false);
+
+    const copy = async () => {
+        try {
+            await navigator.clipboard.writeText(QUICK_START);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        } catch {
+            // Clipboard can be blocked (insecure context, denied permission).
+            // The commands are on screen either way, so just leave the label alone.
+        }
+    };
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-12 rounded-xl border border-border bg-surface overflow-hidden text-left"
+        >
+            <div className="flex items-center justify-between border-b border-border/70 px-4 py-2.5">
+                <span className="font-mono text-[10px] text-muted-foreground">quick start</span>
+                <button
+                    onClick={copy}
+                    className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 font-mono text-[10px] text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
+                >
+                    {copied ? (
+                        <>
+                            <Check className="h-3 w-3" aria-hidden /> copied
+                        </>
+                    ) : (
+                        <>
+                            <Copy className="h-3 w-3" aria-hidden /> copy
+                        </>
+                    )}
+                </button>
+            </div>
+            <pre className="overflow-x-auto px-4 py-4 font-mono text-xs leading-relaxed text-foreground/90">
+                <code>
+                    <span className="text-muted-foreground/50">$ </span>git clone {GITHUB_URL}.git
+                    {"\n"}
+                    <span className="text-muted-foreground/50">$ </span>cd identra{"\n"}
+                    <span className="text-muted-foreground/50">$ </span>just doctor{"  "}
+                    <span className="text-muted-foreground/50"># check your machine is ready</span>
+                    {"\n"}
+                    <span className="text-muted-foreground/50">$ </span>just dev{"     "}
+                    <span className="text-muted-foreground/50"># build and launch with hot reload</span>
+                </code>
+            </pre>
+        </motion.div>
     );
 }

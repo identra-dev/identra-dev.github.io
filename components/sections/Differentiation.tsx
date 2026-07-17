@@ -1,141 +1,127 @@
 "use client";
 
-import { motion, useScroll, useTransform, useMotionTemplate } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionTemplate, MotionValue } from "framer-motion";
 import { useRef } from "react";
 
+// The three defensible points, in the order set by YC-APPLICATION.md §2.
 const SPECS = [
     {
-        label: "Architecture",
-        identra: "Operating layer",
-        others: "Standalone tools"
+        identra: "The real CLI, your config, your login",
+        others: "Wrapped and sandboxed, skills stripped",
     },
     {
-        label: "Context",
-        identra: "Local-first memory",
-        others: "Cloud-first context"
+        identra: "Memory compounds across agents",
+        others: "Amnesia at every session boundary",
     },
     {
-        label: "Security",
-        identra: "Confidential by default",
-        others: "Trust-based security"
-    }
+        identra: "Every agent you already have, one board",
+        others: "One vendor's agent, one per terminal",
+    },
 ];
 
 export function Differentiation() {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,
-        offset: ["start start", "end end"]
+        offset: ["start start", "end end"],
     });
 
+    const headerOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0.5]);
+    const lineHeight = useTransform(scrollYProgress, [0.1, 0.8], ["0%", "100%"]);
+
     return (
-        <section id="differentiation-section" ref={containerRef} className="bg-[#030304] relative h-[300vh] w-full">
+        <section
+            id="differentiation-section"
+            ref={containerRef}
+            className="bg-[#1a1618] relative h-[300vh] w-full"
+        >
             <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
                 <div className="container px-6 max-w-5xl mx-auto w-full">
-                    {/* Minimal Header - Fades out as we scroll deep */}
-                    <motion.div
-                        style={{ opacity: useTransform(scrollYProgress, [0, 0.1], [1, 0.5]) }}
-                        className="text-center mb-24"
-                    >
-                        <h2 className="text-3xl md:text-4xl text-white font-medium tracking-tight">
-                            Built different.
+                    <motion.div style={{ opacity: headerOpacity }} className="text-center mb-20">
+                        <p className="text-[9px] font-mono text-primary uppercase tracking-[0.4em] mb-3">
+                            Positioning
+                        </p>
+                        <h2 className="text-3xl md:text-4xl text-foreground font-display font-normal tracking-tight">
+                            Not another wrapper.
                         </h2>
                     </motion.div>
 
                     <div className="relative">
-                        {/* Central Geometric Divider with Active Boundary */}
+                        {/* Divider with a scanner that tracks progress */}
                         <div className="absolute left-1/2 top-0 bottom-0 w-px hidden md:block">
-                            {/* Base dim line */}
-                            <div className="absolute inset-y-0 w-full bg-white/5" />
-
-                            {/* Growing active line */}
+                            <div className="absolute inset-y-0 w-full bg-border" />
                             <motion.div
-                                style={{
-                                    height: useTransform(scrollYProgress, [0.1, 0.8], ["0%", "100%"]),
-                                }}
-                                className="absolute top-0 w-full bg-gradient-to-b from-white/20 via-white/80 to-white/20 shadow-[0_0_15px_rgba(255,255,255,0.4)]"
+                                style={{ height: lineHeight }}
+                                className="absolute top-0 w-full bg-gradient-to-b from-primary/20 via-primary to-primary/20"
                             >
-                                {/* Leading Edge "Scanner" */}
-                                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0.5 h-8 bg-white shadow-[0_0_10px_2px_rgba(255,255,255,0.8)]" />
+                                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0.5 h-8 bg-primary shadow-[0_0_10px_2px_rgba(233,84,32,0.6)]" />
                             </motion.div>
                         </div>
 
-                        {/* Specifications Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-16 md:gap-y-24">
-                            {/* Headers (Desktop Only) */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-14 md:gap-y-20">
                             <div className="hidden md:block col-span-2">
                                 <div className="grid grid-cols-2 gap-12">
-                                    <div className="pl-12 text-xs font-mono text-white/70 uppercase tracking-widest flex items-center gap-2">
+                                    <div className="pl-12 text-xs font-mono text-primary uppercase tracking-widest">
                                         Identra
                                     </div>
-                                    <div className="text-xs font-mono text-white/50 uppercase tracking-widest">
+                                    <div className="text-xs font-mono text-muted-foreground/60 uppercase tracking-widest">
                                         Others
                                     </div>
                                 </div>
                             </div>
 
-                            {SPECS.map((spec, index) => {
-                                // Staggered reveal logic based on scroll progress
-                                const start = 0.15 + (index * 0.25);
-                                const end = start + 0.15;
-
-                                const opacity = useTransform(scrollYProgress, [start, end], [0, 1]);
-                                const y = useTransform(scrollYProgress, [start, end], [20, 0]);
-
-                                // Micro-Haze: Blur fades from 8px to 0px
-                                const blurValue = useTransform(scrollYProgress, [start, end], [8, 0]);
-                                const filter = useMotionTemplate`blur(${blurValue}px)`;
-
-                                // Brightness/Glow effect on reveal
-                                const brightnessValue = useTransform(scrollYProgress, [start, end], [1.5, 1]);
-                                const textFilter = useMotionTemplate`brightness(${brightnessValue})`;
-
-                                return (
-                                    <motion.div
-                                        key={index}
-                                        style={{ opacity, y, filter }}
-                                        className="col-span-1 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12 group"
-                                    >
-                                        {/* Identra Column (Left) */}
-                                        <motion.div
-                                            style={{ filter: textFilter }}
-                                            className="flex items-center gap-6 md:pl-12 relative"
-                                        >
-                                            {/* Micro Index */}
-                                            <span className="absolute -left-4 md:left-2 text-[10px] font-mono text-white/10 tabular-nums">
-                                                0{index + 1}
-                                            </span>
-
-                                            {/* Active Node Indicator with Signal Pulse */}
-                                            <div className="relative">
-                                                <div className="w-1.5 h-1.5 bg-white rounded-full relative z-10 box-decoration-clone" />
-                                                <motion.div
-                                                    style={{ opacity }}
-                                                    className="absolute inset-0 bg-white rounded-full animate-ping opacity-20"
-                                                />
-                                            </div>
-
-                                            <span className="text-xl md:text-2xl text-white font-medium tracking-tight">
-                                                {spec.identra}
-                                            </span>
-                                        </motion.div>
-
-                                        {/* Others Column (Right) */}
-                                        <div className="flex items-center gap-6 md:pl-0">
-                                            {/* Hollow/Faint Node */}
-                                            <div className="w-1.5 h-1.5 rounded-full border border-white/10 bg-transparent" />
-
-                                            <span className="text-xl md:text-2xl text-white/30 font-normal">
-                                                {spec.others}
-                                            </span>
-                                        </div>
-                                    </motion.div>
-                                );
-                            })}
+                            {SPECS.map((spec, index) => (
+                                <SpecRow
+                                    key={spec.identra}
+                                    spec={spec}
+                                    index={index}
+                                    progress={scrollYProgress}
+                                />
+                            ))}
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+    );
+}
+
+function SpecRow({
+    spec,
+    index,
+    progress,
+}: {
+    spec: { identra: string; others: string };
+    index: number;
+    progress: MotionValue<number>;
+}) {
+    const start = 0.15 + index * 0.25;
+    const end = start + 0.15;
+
+    const opacity = useTransform(progress, [start, end], [0, 1]);
+    const y = useTransform(progress, [start, end], [20, 0]);
+    const blurValue = useTransform(progress, [start, end], [8, 0]);
+    const filter = useMotionTemplate`blur(${blurValue}px)`;
+
+    return (
+        <motion.div
+            style={{ opacity, y, filter }}
+            className="col-span-1 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12"
+        >
+            <div className="flex items-center gap-6 md:pl-12 relative">
+                <span className="absolute -left-4 md:left-2 text-[10px] font-mono text-foreground/15 tabular-nums">
+                    0{index + 1}
+                </span>
+                <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
+                <span className="text-lg md:text-xl text-foreground font-medium tracking-tight">
+                    {spec.identra}
+                </span>
+            </div>
+
+            <div className="flex items-center gap-6">
+                <div className="w-1.5 h-1.5 rounded-full border border-border bg-transparent flex-shrink-0" />
+                <span className="text-lg md:text-xl text-muted-foreground/50">{spec.others}</span>
+            </div>
+        </motion.div>
     );
 }
