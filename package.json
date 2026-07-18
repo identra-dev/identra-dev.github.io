@@ -24,7 +24,6 @@
     "next": "16.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "shadcn": "^4.13.0",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.182.0",
@@ -37,6 +36,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
+    "shadcn": "^4.13.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

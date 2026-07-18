@@ -5,6 +5,7 @@ import { ArrowRight, Github } from "lucide-react";
 import Link from "next/link";
 import { TextReveal } from "@/components/ui/TextReveal";
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import { LiveTerminal } from "@/components/ui/LiveTerminal";
 import { GITHUB_URL } from "@/lib/site";
 
 export function Hero() {
@@ -90,6 +91,16 @@ export function Hero() {
                         Apache-2.0 · Runs on your machine · No accounts, no telemetry
                     </motion.p>
                 </div>
+
+                {/* Signature: a live agent session that lands on the memory beat */}
+                <motion.div
+                    initial={{ opacity: 0, y: 26 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.9, delay: 1, ease: [0.22, 1, 0.36, 1] }}
+                    className="relative mx-auto mt-16 w-full max-w-2xl md:mt-20"
+                >
+                    <LiveTerminal />
+                </motion.div>
             </div>
         </section>
     );
