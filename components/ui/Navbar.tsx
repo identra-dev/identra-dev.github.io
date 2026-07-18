@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "motion/react";
 import { Github, Menu, X } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -48,9 +48,23 @@ function DesktopLinks() {
 
 export function Navbar() {
     const [open, setOpen] = useState(false);
+    const [hidden, setHidden] = useState(false);
+
+    // Hide on scroll down, reveal on scroll up. Always show near the top, and
+    // never hide while the mobile menu is open.
+    const { scrollY } = useScroll();
+    useMotionValueEvent(scrollY, "change", (y) => {
+        const prev = scrollY.getPrevious() ?? 0;
+        setHidden(y > prev && y > 140);
+    });
 
     return (
-        <header className="pointer-events-none fixed inset-x-0 top-4 z-[100] flex flex-col items-center px-4">
+        <motion.header
+            animate={hidden && !open ? "hidden" : "visible"}
+            variants={{ visible: { y: 0 }, hidden: { y: "-135%" } }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="pointer-events-none fixed inset-x-0 top-4 z-[100] flex flex-col items-center px-4"
+        >
             {/* Compact capsule — flat (no drop shadow); depth lives on the pieces */}
             <nav className="pointer-events-auto flex items-center gap-1.5 rounded-full border border-black/[0.06] bg-background/75 py-2 pl-2.5 pr-2 backdrop-blur-md">
                 <a href="#main" className="group flex shrink-0 items-center gap-2.5 pr-1">
@@ -128,6 +142,6 @@ export function Navbar() {
                     </motion.nav>
                 )}
             </AnimatePresence>
-        </header>
+        </motion.header>
     );
 }
