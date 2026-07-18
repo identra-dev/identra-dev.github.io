@@ -61,13 +61,13 @@ export function ProductExperience() {
                                 exit={{ opacity: 0, y: -12 }}
                                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                             >
-                                <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-primary">
+                                <span className="font-mono text-[10px] font-semibold tracking-[0.3em] uppercase text-primary">
                                     {copy.tag}
                                 </span>
-                                <h2 className="mt-4 font-display text-3xl md:text-4xl font-normal tracking-tight text-foreground leading-tight">
+                                <h2 className="mt-4 font-display text-3xl md:text-4xl font-extrabold tracking-[-0.03em] text-foreground leading-tight">
                                     {copy.title}
                                 </h2>
-                                <p className="mt-5 text-base text-muted-foreground leading-relaxed">
+                                <p className="mt-5 text-base font-medium text-muted-foreground leading-relaxed">
                                     {copy.body}
                                 </p>
                             </motion.div>

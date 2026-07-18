@@ -53,32 +53,41 @@ export function FAQ() {
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     className="text-center mb-14"
                 >
-                    <p className="text-[9px] font-mono text-primary uppercase tracking-[0.4em] mb-3">
+                    <p className="text-[9px] font-mono font-semibold text-primary uppercase tracking-[0.4em] mb-3">
                         FAQ
                     </p>
-                    <h2 className="font-display text-3xl md:text-5xl font-normal tracking-tight text-foreground">
+                    <h2 className="font-display text-3xl md:text-5xl font-extrabold tracking-[-0.03em] text-foreground">
                         The questions you&apos;d ask.
                     </h2>
                 </motion.div>
 
-                <div className="divide-y divide-border border-y border-border">
+                <div className="space-y-4">
                     {FAQS.map((faq, i) => {
                         const isOpen = open === i;
                         return (
-                            <div key={faq.q}>
+                            <div
+                                key={faq.q}
+                                className={`rounded-2xl bg-background px-6 transition-shadow duration-300 ${isOpen ? "neu-inset" : "neu-sm"
+                                    }`}
+                            >
                                 <button
                                     onClick={() => setOpen(isOpen ? null : i)}
                                     aria-expanded={isOpen}
-                                    className="flex w-full items-center justify-between gap-6 py-5 text-left transition-colors hover:text-primary"
+                                    className="flex w-full items-center justify-between gap-6 py-5 text-left"
                                 >
-                                    <span className="font-display text-base md:text-lg text-foreground">
+                                    <span
+                                        className={`font-display text-base md:text-lg font-bold transition-colors ${isOpen ? "text-primary" : "text-foreground"
+                                            }`}
+                                    >
                                         {faq.q}
                                     </span>
-                                    <Plus
-                                        className={`h-4 w-4 flex-shrink-0 text-muted-foreground transition-transform duration-300 ${isOpen ? "rotate-45 text-primary" : ""
-                                            }`}
-                                        aria-hidden
-                                    />
+                                    <span className="neu-sm grid h-7 w-7 shrink-0 place-items-center rounded-full">
+                                        <Plus
+                                            className={`h-4 w-4 transition-transform duration-300 ${isOpen ? "rotate-45 text-primary" : "text-muted-foreground"
+                                                }`}
+                                            aria-hidden
+                                        />
+                                    </span>
                                 </button>
 
                                 {/* Grid-rows trick animates to auto height without measuring. */}
@@ -87,7 +96,7 @@ export function FAQ() {
                                         }`}
                                 >
                                     <div className="overflow-hidden">
-                                        <p className="pb-6 pr-10 text-sm md:text-base text-muted-foreground leading-relaxed">
+                                        <p className="pb-6 pr-10 text-sm md:text-base font-medium text-muted-foreground leading-relaxed">
                                             {faq.a}
                                         </p>
                                     </div>

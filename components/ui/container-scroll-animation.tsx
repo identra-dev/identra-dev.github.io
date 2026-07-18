@@ -27,26 +27,22 @@ export const ContainerScroll = ({
   }, []);
 
   const scaleDimensions = () => {
-    return isMobile ? [0.7, 0.9] : [1.05, 1];
+    return isMobile ? [0.85, 1] : [0.92, 1];
   };
 
-  const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
+  // No tilt: the card only scales up and rises slightly as it enters. (Was a
+  // rotateX from 20deg → 0; removed per design direction.)
   const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
-  const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const translate = useTransform(scrollYProgress, [0, 1], [20, -30]);
 
   return (
     <div
-      className="relative flex h-[48rem] items-center justify-center p-2 md:h-[60rem] md:p-20"
+      className="relative flex h-[40rem] items-center justify-center p-2 md:h-[52rem] md:p-20"
       ref={containerRef}
     >
-      <div
-        className="relative w-full py-10 md:py-20"
-        style={{
-          perspective: "1000px",
-        }}
-      >
+      <div className="relative w-full py-10 md:py-20">
         <Header translate={translate} titleComponent={titleComponent} />
-        <Card rotate={rotate} translate={translate} scale={scale}>
+        <Card translate={translate} scale={scale}>
           {children}
         </Card>
       </div>
@@ -54,7 +50,13 @@ export const ContainerScroll = ({
   );
 };
 
-export const Header = ({ translate, titleComponent }: any) => {
+export const Header = ({
+  translate,
+  titleComponent,
+}: {
+  translate: MotionValue<number>;
+  titleComponent: string | React.ReactNode;
+}) => {
   return (
     <motion.div
       style={{
@@ -68,27 +70,21 @@ export const Header = ({ translate, titleComponent }: any) => {
 };
 
 export const Card = ({
-  rotate,
   scale,
   children,
 }: {
-  rotate: MotionValue<number>;
   scale: MotionValue<number>;
   translate: MotionValue<number>;
   children: React.ReactNode;
 }) => {
   return (
     <motion.div
-      style={{
-        rotateX: rotate,
-        scale,
-        boxShadow:
-          "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
-      }}
-      // Yaru frame: the shipped grey (#222222 / #6C6C6C) is off-brand here.
-      className="mx-auto -mt-12 h-[26rem] w-full max-w-5xl rounded-[30px] border-4 border-[#3a2d33] bg-surface p-2 shadow-2xl md:h-[36rem] md:p-4"
+      style={{ scale }}
+      // Light neumorphic frame around the dark product board. mt keeps it clear
+      // of the two-line header above (which also translates on scroll).
+      className="neu mx-auto mt-6 h-[24rem] w-full max-w-5xl rounded-[34px] bg-background p-3 md:h-[34rem] md:p-4"
     >
-      <div className="h-full w-full overflow-hidden rounded-2xl bg-[#1a1618] md:rounded-2xl">
+      <div className="h-full w-full overflow-hidden rounded-[24px] bg-[#1a1618]">
         {children}
       </div>
     </motion.div>

@@ -37,59 +37,58 @@
 }
 
 /*
-  Yaru tokens — source of truth is identra-ops/DESIGN.md §1.
-  Ubuntu/Yaru is a deliberate identity choice: warm, confident, distinctly not-macOS.
-  Do not drift back toward neutral-grey + teal SaaS defaults.
+  Light neumorphic theme. Everything is one soft near-white base; depth comes
+  entirely from paired shadows (a white highlight top-left, a grey shadow
+  bottom-right), never from borders or fills. The orange accent is the only
+  saturated colour on the page — spend it sparingly.
 
-  NOTE: `shadcn init` will overwrite these with its neutral oklch defaults and
-  re-add a `.dark` block. It has done so once already. If a shadcn command touches
-  this file, check these values before committing.
-
-  The site is dark-only: <html> carries `dark` so component `dark:` variants
-  resolve, and there is deliberately no `.dark` override block — these :root
-  tokens are the palette in every case.
+  Neumorphism needs a mid-light base, NOT pure #fff: on pure white the light
+  highlight vanishes and elements stop reading as raised. --background is that
+  base; --neu-light / --neu-dark are the two shadow colours derived from it.
 */
 :root {
-  --background: #1e1a1d;
-  /* Yaru dark canvas */
-  --foreground: #f5f1f0;
-  /* warm white, never pure #fff */
+  --background: #e9ebf1;
+  /* soft cool near-white — the single neumorphic base */
+  --foreground: #23262f;
+  /* near-black, cool */
 
-  --surface: #2c2226;
-  /* node bodies, dock, panels */
-  --surface-raised: #362a2f;
+  --surface: #e9ebf1;
+  /* same base — neumorphic panels are the background, extruded */
+  --surface-raised: #eef0f5;
 
-  --card: #2c2226;
-  --card-foreground: #f5f1f0;
+  --card: #e9ebf1;
+  --card-foreground: #23262f;
 
-  --popover: #2c2226;
-  --popover-foreground: #f5f1f0;
+  --popover: #e9ebf1;
+  --popover-foreground: #23262f;
 
   --primary: #e95420;
-  /* Ubuntu orange — CTAs, running/attention state */
+  /* the one accent — CTAs, active states, key words */
   --primary-foreground: #ffffff;
 
   --aubergine: #77216f;
-  /* active node ring, selection */
 
-  --secondary: #362a2f;
-  --secondary-foreground: #f5f1f0;
+  --secondary: #eef0f5;
+  --secondary-foreground: #23262f;
 
-  --muted: #2c2226;
-  --muted-foreground: #a89ba1;
-  /* warm grey, tuned for AA contrast on --background */
+  --muted: #e9ebf1;
+  --muted-foreground: #6a7180;
+  /* mid grey, AA on the base */
 
   --accent: #e95420;
   --accent-foreground: #ffffff;
 
   --destructive: #c7162b;
 
-  --border: rgba(245, 241, 240, 0.09);
-  --input: rgba(245, 241, 240, 0.12);
+  --border: rgba(35, 38, 47, 0.08);
+  --input: rgba(35, 38, 47, 0.1);
   --ring: #e95420;
 
-  /* Yaru node radius */
-  --radius: 10px;
+  /* Neumorphic shadow pair, derived from --background */
+  --neu-light: #ffffff;
+  --neu-dark: #c3c7d1;
+
+  --radius: 18px;
 }
 
 body {
@@ -100,34 +99,70 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* The canvas is the product, so the page sits on the same dotted grid. */
+/* --- Neumorphic surface utilities --- */
+
+/* Raised: extruded from the surface. */
+.neu {
+  background: var(--background);
+  box-shadow: 7px 7px 16px var(--neu-dark), -7px -7px 16px var(--neu-light);
+}
+
+.neu-sm {
+  background: var(--background);
+  box-shadow: 4px 4px 9px var(--neu-dark), -4px -4px 9px var(--neu-light);
+}
+
+/* Pressed: carved into the surface. */
+.neu-inset {
+  background: var(--background);
+  box-shadow: inset 4px 4px 9px var(--neu-dark), inset -4px -4px 9px var(--neu-light);
+}
+
+/* Interactive raised → pressed on click. */
+.neu-btn {
+  background: var(--background);
+  box-shadow: 6px 6px 13px var(--neu-dark), -6px -6px 13px var(--neu-light);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.neu-btn:hover {
+  box-shadow: 8px 8px 18px var(--neu-dark), -8px -8px 18px var(--neu-light);
+}
+
+.neu-btn:active {
+  box-shadow: inset 4px 4px 9px var(--neu-dark), inset -4px -4px 9px var(--neu-light);
+}
+
+/* The orange primary button, extruded with an orange-tinted shadow pair. */
+.neu-primary {
+  background: linear-gradient(145deg, #f15a25, #d94a1c);
+  color: var(--primary-foreground);
+  box-shadow: 6px 6px 14px rgba(190, 60, 20, 0.35), -5px -5px 12px rgba(255, 255, 255, 0.9);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.neu-primary:hover {
+  box-shadow: 8px 8px 18px rgba(190, 60, 20, 0.42), -6px -6px 14px rgba(255, 255, 255, 0.95);
+}
+
+.neu-primary:active {
+  box-shadow: inset 4px 4px 10px rgba(150, 45, 15, 0.5), inset -3px -3px 8px rgba(255, 160, 120, 0.6);
+}
+
+/* Dotted grid — only for the dark product canvas, whose light dots need a dark bg. */
 .canvas-grid {
   background-image: radial-gradient(circle, rgba(245, 241, 240, 0.07) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 
 ::selection {
-  background: var(--aubergine);
+  background: var(--primary);
   color: #fff;
 }
 
 :focus-visible {
   outline: 2px solid var(--ring);
-  outline-offset: 2px;
-}
-
-@keyframes drift {
-  0% {
-    transform: translate(0, 0);
-  }
-
-  50% {
-    transform: translate(-4%, -4%);
-  }
-
-  100% {
-    transform: translate(0, 0);
-  }
+  outline-offset: 3px;
 }
 
 /* Node status dot — mirrors the running state in the real dock */
@@ -143,10 +178,6 @@ body {
     opacity: 0.85;
     box-shadow: 0 0 0 4px rgba(233, 84, 32, 0);
   }
-}
-
-.animate-drift {
-  animation: drift 18s ease-in-out infinite;
 }
 
 .animate-status-pulse {

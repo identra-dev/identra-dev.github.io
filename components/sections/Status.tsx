@@ -31,13 +31,13 @@ export function Status() {
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 >
-                    <p className="text-[9px] font-mono text-primary uppercase tracking-[0.4em] mb-3">
+                    <p className="text-[9px] font-mono font-semibold text-primary uppercase tracking-[0.4em] mb-3">
                         Status
                     </p>
-                    <h2 className="font-display text-3xl md:text-4xl font-normal tracking-tight text-foreground">
+                    <h2 className="font-display text-3xl md:text-4xl font-extrabold tracking-[-0.03em] text-foreground">
                         Where this is today
                     </h2>
-                    <p className="mt-5 text-base text-muted-foreground leading-relaxed">
+                    <p className="mt-5 text-base font-medium text-muted-foreground leading-relaxed">
                         Identra is early, and honest about it. Rather than ship a wide surface half
                         working, the core works and the rest says so.
                     </p>
@@ -82,16 +82,19 @@ function StatusList({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+            className="neu rounded-3xl bg-background p-7"
         >
-            <h3 className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground/70 mb-5">
+            <h3 className="font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground mb-6">
                 {heading}
             </h3>
             <ul className="space-y-4">
                 {items.map((item) => (
                     <li key={item} className="flex gap-3">
-                        <span className="mt-1 flex-shrink-0">{icon}</span>
+                        <span className="neu-sm mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-lg">
+                            {icon}
+                        </span>
                         <span
-                            className={`text-sm leading-relaxed ${muted ? "text-muted-foreground/70" : "text-foreground/90"
+                            className={`text-sm font-medium leading-relaxed ${muted ? "text-muted-foreground" : "text-foreground/90"
                                 }`}
                         >
                             {item}

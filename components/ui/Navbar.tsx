@@ -23,27 +23,26 @@ const ITEMS = [
 ];
 
 /*
-  Built on Aceternity's resizable navbar: full-width bar that contracts into a
-  glass pill once you're past 100px.
-
-  The primitives hard-code light/dark colours (bg-white/80, dark:bg-neutral-950/80,
-  dark:bg-transparent). <html> carries `dark`, so any override here has to be a
-  `dark:` variant too or theirs wins on specificity. Hence dark:bg-* below.
-  Nav items are ours rather than <NavItems> so the hover pill picks up Yaru.
+  Light neumorphic navbar on Aceternity's resizable primitive: a full-width
+  raised pill that contracts past 100px. The primitives ship light/dark colour
+  classes; <html> has no `dark`, so their light defaults apply and we override
+  bg/shadow with neu utilities. Nav items are ours so the hover pill is inset.
 */
 
 function Wordmark() {
     return (
         <a href="#main" className="relative z-20 flex shrink-0 items-center gap-2.5 group">
-            <Image
-                src="/identra.svg"
-                alt=""
-                width={30}
-                height={30}
-                className="rounded-[8px] transition-transform duration-500 group-hover:scale-105"
-                priority
-            />
-            <span className="font-display text-[15px] font-semibold tracking-tight text-foreground">
+            <span className="neu-sm grid h-9 w-9 place-items-center rounded-xl">
+                <Image
+                    src="/identra.svg"
+                    alt=""
+                    width={22}
+                    height={22}
+                    className="rounded-md transition-transform duration-500 group-hover:scale-105"
+                    priority
+                />
+            </span>
+            <span className="font-display text-[15px] font-extrabold tracking-tight text-foreground">
                 Identra
             </span>
         </a>
@@ -56,7 +55,7 @@ function GithubCta() {
             href={GITHUB_URL}
             target="_blank"
             rel="noreferrer"
-            className="relative z-20 inline-flex h-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-4 text-[13px] font-semibold text-primary-foreground shadow-[0_1px_0_rgba(255,255,255,0.18)_inset,0_6px_20px_-6px_rgba(233,84,32,0.7)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary/90"
+            className="neu-primary relative z-20 inline-flex h-9 shrink-0 items-center justify-center gap-2 rounded-full px-4 text-[13px] font-bold"
         >
             <Github className="h-3.5 w-3.5" aria-hidden />
             GitHub
@@ -77,12 +76,12 @@ function DesktopItems() {
                     key={item.link}
                     href={item.link}
                     onMouseEnter={() => setHovered(i)}
-                    className="relative px-3.5 py-2 text-[13px] font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                    className="relative px-3.5 py-2 text-[13px] font-semibold text-muted-foreground transition-colors duration-200 hover:text-foreground"
                 >
                     {hovered === i && (
                         <motion.div
                             layoutId="nav-pill"
-                            className="absolute inset-0 rounded-full bg-foreground/[0.07]"
+                            className="neu-inset absolute inset-0 rounded-full"
                             transition={{ type: "spring", stiffness: 380, damping: 30 }}
                         />
                     )}
@@ -99,14 +98,14 @@ export function Navbar() {
     return (
         // Ships as `sticky top-20`; twMerge lets these win.
         <ResizableNavbar className="fixed inset-x-0 top-0 z-[100] pt-4">
-            <NavBody className="rounded-full border border-white/[0.08] px-3 py-2 backdrop-blur-md dark:bg-surface/70">
+            <NavBody className="neu rounded-full bg-background px-3 py-2">
                 <Wordmark />
                 <DesktopItems />
                 <GithubCta />
             </NavBody>
 
-            <MobileNav className="dark:bg-transparent">
-                <MobileNavHeader className="rounded-full border border-white/[0.08] bg-surface/70 px-3 py-2 backdrop-blur-md">
+            <MobileNav>
+                <MobileNavHeader className="neu rounded-full bg-background px-3 py-2">
                     <Wordmark />
                     <div className="flex items-center gap-3">
                         <GithubCta />
@@ -117,14 +116,14 @@ export function Navbar() {
                 <MobileNavMenu
                     isOpen={open}
                     onClose={() => setOpen(false)}
-                    className="gap-1 rounded-2xl border border-white/[0.08] px-2 py-3 dark:bg-surface"
+                    className="neu gap-1 rounded-2xl bg-background px-2 py-3"
                 >
                     {ITEMS.map((item) => (
                         <a
                             key={item.link}
                             href={item.link}
                             onClick={() => setOpen(false)}
-                            className="w-full rounded-xl px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
+                            className="w-full rounded-xl px-4 py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
                         >
                             {item.name}
                         </a>

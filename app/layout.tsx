@@ -51,9 +51,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // Dark-only site. `dark` is what makes `dark:` variants resolve in the
-    // shadcn/aceternity components; the palette itself comes from :root.
-    <html lang="en" className="dark">
+    // Light-only site. No `dark` class, so shadcn/aceternity `dark:` variants
+    // stay off and their light defaults apply; the palette comes from :root.
+    <html lang="en">
       <body
         className={`${geist.variable} ${ubuntuMono.variable} antialiased bg-background text-foreground`}
       >

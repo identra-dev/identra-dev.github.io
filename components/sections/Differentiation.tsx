@@ -33,15 +33,15 @@ export function Differentiation() {
         <section
             id="differentiation-section"
             ref={containerRef}
-            className="bg-[#1a1618] relative h-[300vh] w-full"
+            className="bg-background relative h-[300vh] w-full"
         >
             <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
                 <div className="container px-6 max-w-5xl mx-auto w-full">
                     <motion.div style={{ opacity: headerOpacity }} className="text-center mb-20">
-                        <p className="text-[9px] font-mono text-primary uppercase tracking-[0.4em] mb-3">
+                        <p className="text-[9px] font-mono font-semibold text-primary uppercase tracking-[0.4em] mb-3">
                             Positioning
                         </p>
-                        <h2 className="text-3xl md:text-4xl text-foreground font-display font-normal tracking-tight">
+                        <h2 className="text-3xl md:text-4xl text-foreground font-display font-extrabold tracking-[-0.03em]">
                             Not another wrapper.
                         </h2>
                     </motion.div>
@@ -61,10 +61,10 @@ export function Differentiation() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-14 md:gap-y-20">
                             <div className="hidden md:block col-span-2">
                                 <div className="grid grid-cols-2 gap-12">
-                                    <div className="pl-12 text-xs font-mono text-primary uppercase tracking-widest">
+                                    <div className="pl-12 text-xs font-mono font-semibold text-primary uppercase tracking-widest">
                                         Identra
                                     </div>
-                                    <div className="text-xs font-mono text-muted-foreground/60 uppercase tracking-widest">
+                                    <div className="text-xs font-mono font-semibold text-muted-foreground/70 uppercase tracking-widest">
                                         Others
                                     </div>
                                 </div>
@@ -109,18 +109,18 @@ function SpecRow({
             className="col-span-1 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12"
         >
             <div className="flex items-center gap-6 md:pl-12 relative">
-                <span className="absolute -left-4 md:left-2 text-[10px] font-mono text-foreground/15 tabular-nums">
+                <span className="absolute -left-4 md:left-2 text-[10px] font-mono text-foreground/20 tabular-nums">
                     0{index + 1}
                 </span>
                 <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
-                <span className="text-lg md:text-xl text-foreground font-medium tracking-tight">
+                <span className="text-lg md:text-xl text-foreground font-bold tracking-tight">
                     {spec.identra}
                 </span>
             </div>
 
             <div className="flex items-center gap-6">
-                <div className="w-1.5 h-1.5 rounded-full border border-border bg-transparent flex-shrink-0" />
-                <span className="text-lg md:text-xl text-muted-foreground/50">{spec.others}</span>
+                <div className="w-1.5 h-1.5 rounded-full border border-muted-foreground/40 bg-transparent flex-shrink-0" />
+                <span className="text-lg md:text-xl font-medium text-muted-foreground/70">{spec.others}</span>
             </div>
         </motion.div>
     );

@@ -5,47 +5,36 @@ import { ArrowRight, Github } from "lucide-react";
 import Link from "next/link";
 import { TextReveal } from "@/components/ui/TextReveal";
 import { MagneticButton } from "@/components/ui/MagneticButton";
-import { Spotlight } from "@/components/ui/spotlight-new";
 import { GITHUB_URL } from "@/lib/site";
-
-// Ubuntu orange (#E95420) is ~hsl(15, 82%, 52%). The component ships blue.
-const SPOT_1 =
-    "radial-gradient(68.54% 68.72% at 55.02% 31.46%, hsla(15, 82%, 70%, .10) 0, hsla(15, 82%, 52%, .03) 50%, hsla(15, 82%, 45%, 0) 80%)";
-const SPOT_2 =
-    "radial-gradient(50% 50% at 50% 50%, hsla(15, 82%, 70%, .07) 0, hsla(15, 82%, 52%, .02) 80%, transparent 100%)";
-const SPOT_3 =
-    "radial-gradient(50% 50% at 50% 50%, hsla(310, 56%, 40%, .05) 0, hsla(310, 56%, 30%, .02) 80%, transparent 100%)";
 
 export function Hero() {
     return (
         <section
             id="hero-section"
-            className="relative w-full overflow-hidden bg-transparent pt-36 pb-24 md:pt-44 md:pb-32"
+            className="relative w-full overflow-hidden bg-background pt-36 pb-24 md:pt-44 md:pb-28"
         >
-            <Spotlight
-                gradientFirst={SPOT_1}
-                gradientSecond={SPOT_2}
-                gradientThird={SPOT_3}
-                translateY={-320}
-                duration={9}
+            {/* One soft orange bloom, low and centered — the only colour in the field */}
+            <div
+                className="pointer-events-none absolute left-1/2 top-[-10%] -z-0 h-[520px] w-[900px] -translate-x-1/2 rounded-full opacity-60 blur-[120px]"
+                style={{ background: "radial-gradient(closest-side, rgba(233,84,32,0.18), transparent)" }}
+                aria-hidden
             />
 
             <div className="relative z-10 container mx-auto px-6">
-                {/* Centered statement */}
                 <div className="mx-auto max-w-4xl text-center">
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.1 }}
-                        className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-border bg-surface/50 px-3.5 py-1.5 backdrop-blur-sm"
+                        className="neu-inset mb-9 inline-flex items-center gap-2.5 rounded-full px-4 py-2"
                     >
                         <span className="h-1.5 w-1.5 rounded-full bg-primary animate-status-pulse" aria-hidden />
-                        <span className="font-mono text-[11px] tracking-wide text-muted-foreground">
+                        <span className="font-mono text-[11px] font-medium tracking-wide text-muted-foreground">
                             Early · Linux today · macOS in progress
                         </span>
                     </motion.div>
 
-                    <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.75rem] font-bold tracking-[-0.035em] text-foreground leading-[1.06] pb-[0.08em]">
+                    <h1 className="font-display text-5xl font-extrabold leading-[1.02] tracking-[-0.04em] text-foreground sm:text-6xl md:text-7xl lg:text-[5.75rem] pb-[0.08em]">
                         <TextReveal text="Your agents" />
                         <span className="text-primary">
                             <TextReveal text="stop forgetting." delay={0.18} />
@@ -56,7 +45,7 @@ export function Hero() {
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                        className="mx-auto mt-8 max-w-2xl font-sans text-lg md:text-xl text-muted-foreground leading-relaxed"
+                        className="mx-auto mt-8 max-w-2xl font-sans text-lg font-medium leading-relaxed text-muted-foreground md:text-xl"
                     >
                         Every coding agent you already have — the real CLI, your config, your
                         login — on one local canvas, with a memory that compounds across agents
@@ -67,14 +56,14 @@ export function Hero() {
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
-                        className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
+                        className="mt-11 flex flex-col items-center justify-center gap-4 sm:flex-row"
                     >
                         <MagneticButton strength={0.4}>
                             <a
                                 href={GITHUB_URL}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="inline-flex h-12 items-center justify-center rounded-full bg-primary px-8 text-base font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-primary/90"
+                                className="neu-primary inline-flex h-12 items-center justify-center rounded-full px-8 text-base font-bold"
                             >
                                 <Github className="mr-2 h-4 w-4" aria-hidden />
                                 View on GitHub
@@ -84,7 +73,7 @@ export function Hero() {
                         <MagneticButton strength={0.3}>
                             <Link
                                 href="#how-it-works"
-                                className="group inline-flex h-12 items-center justify-center rounded-full border border-border bg-foreground/[0.02] px-7 text-base font-medium text-foreground backdrop-blur-sm transition-all hover:bg-foreground/[0.06]"
+                                className="neu-btn group inline-flex h-12 items-center justify-center rounded-full px-7 text-base font-bold text-foreground"
                             >
                                 How it works
                                 <ArrowRight className="ml-2 h-4 w-4 opacity-70 transition-transform group-hover:translate-x-1" aria-hidden />
@@ -96,7 +85,7 @@ export function Hero() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.8, delay: 0.9 }}
-                        className="mt-7 font-mono text-xs text-muted-foreground/70"
+                        className="mt-8 font-mono text-xs font-medium text-muted-foreground/80"
                     >
                         Apache-2.0 · Runs on your machine · No accounts, no telemetry
                     </motion.p>

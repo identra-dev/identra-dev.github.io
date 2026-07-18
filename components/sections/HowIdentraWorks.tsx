@@ -79,15 +79,13 @@ export function HowIdentraWorks() {
             className="relative h-screen bg-background overflow-hidden"
             id="how-it-works"
         >
-            <div className="absolute inset-0 canvas-grid opacity-40 pointer-events-none" />
-
             <div ref={headerRef} className="absolute top-28 left-6 md:left-24 z-20 pointer-events-none">
                 <motion.h2
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.1 }}
-                    className="text-4xl md:text-6xl font-display font-normal tracking-tight text-foreground"
+                    className="text-4xl md:text-6xl font-display font-extrabold tracking-[-0.03em] text-foreground"
                 >
                     How Identra works
                 </motion.h2>
@@ -107,20 +105,16 @@ export function HowIdentraWorks() {
                         >
                             <div className="relative group h-full flex flex-col">
                                 <div
-                                    className={`absolute inset-0 rounded-2xl transition-all duration-700 ease-out border ${isActive
-                                        ? "bg-surface border-border shadow-[0_0_80px_-20px_rgba(233,84,32,0.25)]"
-                                        : "bg-surface/40 border-border/50"
+                                    className={`absolute inset-0 rounded-[26px] bg-background transition-all duration-700 ease-out ${isActive ? "neu" : "neu-sm opacity-70"
                                         }`}
-                                >
-                                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-                                </div>
+                                />
 
                                 <div className="relative h-full p-8 md:p-12 flex flex-col justify-between">
                                     <div
                                         className={`flex flex-col gap-2 transition-all duration-500 ${isActive ? "opacity-100 translate-y-0" : "opacity-40 translate-y-2"
                                             }`}
                                     >
-                                        <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-primary">
+                                        <span className="font-mono text-[10px] font-semibold tracking-[0.3em] uppercase text-primary">
                                             {step.tag}
                                         </span>
                                         <div
@@ -131,7 +125,7 @@ export function HowIdentraWorks() {
 
                                     <div className="flex flex-col gap-6 md:gap-8">
                                         <h3
-                                            className={`text-5xl md:text-6xl font-display font-normal tracking-tight text-foreground leading-[0.95] transition-all duration-700 ${isActive ? "translate-x-0" : "-translate-x-4"
+                                            className={`text-5xl md:text-6xl font-display font-extrabold tracking-[-0.03em] text-foreground leading-[0.95] transition-all duration-700 ${isActive ? "translate-x-0" : "-translate-x-4"
                                                 }`}
                                         >
                                             {step.title}

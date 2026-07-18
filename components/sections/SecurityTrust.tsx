@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionStyle } from "framer-motion";
-import { CometCard } from "@/components/ui/comet-card";
 
 /*
   Every claim here must be true and checkable in the identra repo.
@@ -16,21 +15,18 @@ const CARDS = [
         title: "It never calls out.",
         body: "Identra has no server and no accounts. There is no backend to breach because your work never leaves the machine it runs on.",
         detail: { label: "Telemetry", value: "None" },
-        glow: "rgba(233, 84, 32, 0.7)",
     },
     {
         tag: "Credentials",
         title: "Your keys stay yours.",
         body: "Agent API keys live in your agent's own CLI config, where they already are. Identra never reads them, never stores them, and never proxies your requests.",
         detail: { label: "Keys stored by Identra", value: "Zero" },
-        glow: "rgba(119, 33, 111, 0.7)",
     },
     {
         tag: "Local memory",
         title: "Embedded on your disk.",
         body: "Memory extracts facts and embeds them locally with fastembed, into one SQLite file. With no model configured it stores the text verbatim rather than guessing.",
         detail: { label: "Store", value: "Local SQLite" },
-        glow: "rgba(233, 84, 32, 0.7)",
     },
 ];
 
@@ -70,54 +66,49 @@ export function SecurityTrust() {
                     className="absolute top-24 md:top-28 text-center z-50"
                     style={{ opacity: headerOpacity, y: headerY }}
                 >
-                    <p className="text-[9px] font-mono text-primary uppercase tracking-[0.4em] mb-3">
+                    <p className="text-[9px] font-mono font-semibold text-primary uppercase tracking-[0.4em] mb-3">
                         Local-first
                     </p>
-                    <h2 className="text-3xl md:text-4xl font-display font-normal tracking-tight text-foreground">
+                    <h2 className="text-3xl md:text-4xl font-display font-extrabold tracking-[-0.03em] text-foreground">
                         Where your data lives
                     </h2>
                 </motion.div>
 
                 <div className="relative flex items-center justify-center w-full h-[500px] mt-8">
                     {CARDS.map((card, i) => (
-                        <CometCard
+                        <motion.div
                             key={card.tag}
-                            className={`absolute w-[260px] md:w-[300px] h-[400px] md:h-[440px] ${i === 1 ? "z-20" : "z-10"
+                            className={`neu absolute w-[260px] md:w-[300px] h-[400px] md:h-[440px] rounded-[26px] bg-background ${i === 1 ? "z-20" : "z-10"
                                 }`}
-                            glowColor={card.glow}
                             style={transforms[i]}
                         >
-                            <div className="w-full h-full rounded-2xl border border-border bg-surface flex flex-col overflow-hidden">
-                                <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+                            <div className="p-7 flex flex-col h-full">
+                                <span className="font-mono text-[9px] font-semibold tracking-[0.3em] uppercase text-primary">
+                                    {card.tag}
+                                </span>
 
-                                <div className="p-6 flex flex-col h-full">
-                                    <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-muted-foreground">
-                                        {card.tag}
+                                <h3 className="mt-6 text-2xl md:text-3xl font-display font-extrabold tracking-[-0.02em] text-foreground leading-tight mb-5">
+                                    {card.title}
+                                </h3>
+
+                                <p className="text-sm font-medium text-muted-foreground leading-relaxed mb-auto">
+                                    {card.body}
+                                </p>
+
+                                <div className="neu-inset mt-6 flex items-center justify-between rounded-xl px-4 py-3">
+                                    <span className="text-[9px] font-mono font-semibold uppercase tracking-widest text-muted-foreground">
+                                        {card.detail.label}
                                     </span>
-
-                                    <h3 className="mt-6 text-2xl md:text-3xl font-display font-normal tracking-tight text-foreground leading-tight mb-5">
-                                        {card.title}
-                                    </h3>
-
-                                    <p className="text-sm text-muted-foreground leading-relaxed mb-auto">
-                                        {card.body}
-                                    </p>
-
-                                    <div className="mt-6 flex items-center justify-between rounded-xl border border-border bg-background/40 px-4 py-3">
-                                        <span className="text-[9px] font-mono uppercase tracking-widest text-muted-foreground/70">
-                                            {card.detail.label}
-                                        </span>
-                                        <span className="font-mono text-xs text-primary">
-                                            {card.detail.value}
-                                        </span>
-                                    </div>
+                                    <span className="font-mono text-xs font-bold text-primary">
+                                        {card.detail.value}
+                                    </span>
                                 </div>
                             </div>
-                        </CometCard>
+                        </motion.div>
                     ))}
                 </div>
 
-                <p className="absolute bottom-16 px-6 text-center font-mono text-xs text-muted-foreground/70">
+                <p className="absolute bottom-16 px-6 text-center font-mono text-xs font-medium text-muted-foreground">
                     Canvas state lives in .identra/canvas.json in your project · Apache-2.0, so
                     you can check all of this yourself
                 </p>

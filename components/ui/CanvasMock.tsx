@@ -32,7 +32,7 @@ export function CanvasMock({ beat, className }: { beat: Beat; className?: string
     return (
         <div
             className={cn(
-                "relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-border bg-[#1a1618] shadow-[0_24px_80px_-24px_rgba(0,0,0,0.8)]",
+                "relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-white/10 bg-[#1a1618] shadow-[0_24px_80px_-24px_rgba(0,0,0,0.8)]",
                 className
             )}
             style={{ containerType: "inline-size" }}
@@ -54,7 +54,7 @@ export function CanvasMock({ beat, className }: { beat: Beat; className?: string
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="absolute inset-0 flex items-center justify-center text-center px-6 font-mono text-xs text-muted-foreground/70"
+                        className="absolute inset-0 flex items-center justify-center text-center px-6 font-mono text-xs text-white/40"
                     >
                         Right-click or use the dock to add an agent
                     </motion.p>
@@ -152,7 +152,7 @@ export function CanvasMock({ beat, className }: { beat: Beat; className?: string
             </AnimatePresence>
 
             {/* Dock */}
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1 rounded-xl border border-border bg-[#2c2226]/90 px-1.5 py-1.5 backdrop-blur-sm">
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1 rounded-xl border border-white/10 bg-[#2c2226]/90 px-1.5 py-1.5 backdrop-blur-sm">
                 {[
                     { icon: Plus, label: "Codex" },
                     { icon: Terminal, label: "Terminal" },
@@ -160,7 +160,7 @@ export function CanvasMock({ beat, className }: { beat: Beat; className?: string
                 ].map(({ icon: Icon, label }) => (
                     <div
                         key={label}
-                        className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[10px] font-mono text-muted-foreground"
+                        className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[10px] font-mono text-white/55"
                     >
                         <Icon className="h-3 w-3" aria-hidden />
                         {label}
@@ -188,13 +188,13 @@ function AgentNode({
     recall?: boolean;
 }) {
     return (
-        <div className="rounded-[10px] border border-border bg-surface shadow-[0_16px_40px_-12px_rgba(0,0,0,0.7)] overflow-hidden">
+        <div className="rounded-[10px] border border-white/10 bg-[#2c2226] shadow-[0_16px_40px_-12px_rgba(0,0,0,0.7)] overflow-hidden">
             {/* Title bar: status dot + agent + cwd + menu */}
-            <div className="flex items-center gap-2 border-b border-border/70 px-2.5 py-1.5">
+            <div className="flex items-center gap-2 border-b border-white/[0.08] px-2.5 py-1.5">
                 <span className={`h-1.5 w-1.5 rounded-full ${STATE_DOT[state]}`} aria-hidden />
-                <span className="font-mono text-[10px] text-foreground">{agent}</span>
-                <span className="font-mono text-[10px] text-muted-foreground/60 ml-1">{cwd}</span>
-                <div className="ml-auto flex items-center gap-1.5 text-muted-foreground/50" aria-hidden>
+                <span className="font-mono text-[10px] text-white/90">{agent}</span>
+                <span className="font-mono text-[10px] text-white/40 ml-1">{cwd}</span>
+                <div className="ml-auto flex items-center gap-1.5 text-white/40" aria-hidden>
                     <MoreHorizontal className="h-3 w-3" />
                     <X className="h-3 w-3" />
                 </div>
@@ -209,10 +209,10 @@ function AgentNode({
                         transition={{ delay: 0.25, duration: 0.5 }}
                         className="mb-2 rounded-md border border-aubergine/60 bg-aubergine/15 px-2 py-1.5"
                     >
-                        <div className="text-[9px] uppercase tracking-wider text-foreground/80">
+                        <div className="text-[9px] uppercase tracking-wider text-white/80">
                             Identra remembers · 3 facts
                         </div>
-                        <ul className="mt-1 space-y-0.5 text-muted-foreground">
+                        <ul className="mt-1 space-y-0.5 text-white/55">
                             <li>• Auth uses JWT, not sessions</li>
                             <li>• The 3-step onboarding was rejected</li>
                             <li>• DB is Postgres + sqlx</li>
@@ -222,12 +222,12 @@ function AgentNode({
                 {lines.map((line) => (
                     <div
                         key={line}
-                        className={line.startsWith("$") ? "text-foreground/90" : "text-muted-foreground"}
+                        className={line.startsWith("$") ? "text-white/90" : "text-white/55"}
                     >
                         {line}
                     </div>
                 ))}
-                {recall && <div className="text-foreground/90">$ codex</div>}
+                {recall && <div className="text-white/90">$ codex</div>}
                 {(caret || recall) && (
                     <span className="inline-block h-3 w-1.5 bg-primary animate-caret align-middle" aria-hidden />
                 )}
