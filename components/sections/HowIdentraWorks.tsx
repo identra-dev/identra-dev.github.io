@@ -2,6 +2,7 @@
 
 import { useRef, useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { TerminalSquare, Save, Brain } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -13,19 +14,25 @@ gsap.registerPlugin(ScrollTrigger);
 */
 const STEPS = [
     {
-        tag: "01 / Fidelity",
+        step: "01",
+        tag: "Fidelity",
+        icon: TerminalSquare,
         title: "Full fidelity",
         description:
             "Drop an agent node and it spawns the real CLI in a real PTY — your environment, your config, your login. No shell wrapper, no sandbox pretending to be your machine.",
     },
     {
-        tag: "02 / Continuity",
+        step: "02",
+        tag: "Continuity",
+        icon: Save,
         title: "It persists",
         description:
             "Nodes, edges and layout save to .identra/canvas.json inside your project with a debounced atomic write. Close the app, open it next week, everything is where you left it.",
     },
     {
-        tag: "03 / Memory",
+        step: "03",
+        tag: "Memory",
+        icon: Brain,
         title: "It remembers",
         description:
             "After a session, one extraction pass pulls the durable facts, dedupes by content hash, embeds locally with fastembed, and stores them in a local SQLite database with a vector index.",
@@ -93,53 +100,44 @@ export function HowIdentraWorks() {
 
             <div
                 ref={sectionRef}
-                className="flex items-end h-full pb-24 md:pb-32 pl-[5vw] pr-[20vw] md:pl-[30vw] md:pr-[20vw] gap-[5vw] md:gap-[15vw] w-fit"
+                className="flex items-center h-full pl-[6vw] pr-[20vw] md:pl-[26vw] md:pr-[16vw] gap-[6vw] md:gap-[6vw] w-fit"
             >
                 {STEPS.map((step, index) => {
                     const isActive = index === activeIndex;
+                    const Icon = step.icon;
                     return (
                         <div
                             key={step.tag}
-                            className={`relative flex-shrink-0 w-[85vw] md:w-[45vw] lg:w-[32vw] h-auto min-h-[50vh] max-h-[75vh] flex flex-col justify-end transition-all duration-700 ease-out ${isActive ? "scale-100 opacity-100 blur-0" : "scale-90 opacity-30 blur-[2px]"
+                            className={`relative flex-shrink-0 w-[82vw] md:w-[44vw] lg:w-[30rem] transition-all duration-700 ease-out ${isActive ? "scale-100 opacity-100 blur-0" : "scale-95 opacity-45 blur-[1px]"
                                 }`}
                         >
-                            <div className="relative group h-full flex flex-col">
-                                <div
-                                    className={`absolute inset-0 rounded-[26px] bg-background transition-all duration-700 ease-out ${isActive ? "neu" : "neu-sm opacity-70"
-                                        }`}
-                                />
-
-                                <div className="relative h-full p-8 md:p-12 flex flex-col justify-between">
-                                    <div
-                                        className={`flex flex-col gap-2 transition-all duration-500 ${isActive ? "opacity-100 translate-y-0" : "opacity-40 translate-y-2"
+                            <div
+                                className={`flex flex-col gap-7 rounded-[28px] bg-background p-9 md:p-11 transition-all duration-700 ease-out ${isActive ? "neu" : "neu-sm"
+                                    }`}
+                            >
+                                {/* Top row: friendly icon tile + step number */}
+                                <div className="flex items-center justify-between">
+                                    <span
+                                        className={`grid h-14 w-14 place-items-center rounded-2xl transition-colors duration-500 ${isActive ? "neu-primary" : "neu-sm text-muted-foreground"
                                             }`}
                                     >
-                                        <span className="font-mono text-[10px] font-semibold tracking-[0.3em] uppercase text-primary">
-                                            {step.tag}
-                                        </span>
-                                        <div
-                                            className={`h-px bg-gradient-to-r from-primary to-transparent transition-all duration-700 ${isActive ? "w-full opacity-100" : "w-0 opacity-0"
-                                                }`}
-                                        />
-                                    </div>
+                                        <Icon className="h-6 w-6" aria-hidden />
+                                    </span>
+                                    <span className="font-mono text-5xl font-extrabold leading-none tracking-tight text-foreground/[0.08]">
+                                        {step.step}
+                                    </span>
+                                </div>
 
-                                    <div className="flex flex-col gap-6 md:gap-8">
-                                        <h3
-                                            className={`text-5xl md:text-6xl font-display font-extrabold tracking-[-0.03em] text-foreground leading-[0.95] transition-all duration-700 ${isActive ? "translate-x-0" : "-translate-x-4"
-                                                }`}
-                                        >
-                                            {step.title}
-                                        </h3>
-
-                                        <div
-                                            className={`overflow-hidden transition-all duration-700 delay-100 ${isActive ? "max-h-60 opacity-100" : "max-h-0 opacity-0"
-                                                }`}
-                                        >
-                                            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl">
-                                                {step.description}
-                                            </p>
-                                        </div>
-                                    </div>
+                                <div className="flex flex-col gap-3">
+                                    <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-primary">
+                                        {step.tag}
+                                    </span>
+                                    <h3 className="font-display text-3xl md:text-4xl font-extrabold tracking-[-0.03em] text-foreground leading-tight">
+                                        {step.title}
+                                    </h3>
+                                    <p className="mt-1 text-[15px] md:text-base font-medium text-muted-foreground leading-relaxed">
+                                        {step.description}
+                                    </p>
                                 </div>
                             </div>
                         </div>
