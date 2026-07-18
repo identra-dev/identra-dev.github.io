@@ -22,23 +22,23 @@ const ubuntuMono = Ubuntu_Mono({
 });
 
 const description =
-  "Identra runs every coding agent you already have — the real CLI, your config, your login — on one local desktop canvas, with a memory that compounds across agents and sessions.";
+  "Run the coding agents you already have on one local desktop canvas. Each keeps its real CLI, your config, and your login, and a shared memory compounds across agents and sessions.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://identra-dev.github.io"),
-  title: "Identra — Your agents stop forgetting",
+  metadataBase: new URL("https://identra.dev"),
+  title: "Identra: your agents stop forgetting",
   description,
   openGraph: {
-    title: "Identra — Your agents stop forgetting",
+    title: "Identra: your agents stop forgetting",
     description,
-    url: "https://identra-dev.github.io",
+    url: "https://identra.dev",
     siteName: "Identra",
     images: [{ url: "/identra.png", width: 1600, height: 1600, alt: "Identra" }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Identra — Your agents stop forgetting",
+    title: "Identra: your agents stop forgetting",
     description,
     images: ["/identra.png"],
   },

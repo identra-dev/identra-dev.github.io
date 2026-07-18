@@ -12,7 +12,7 @@ import { useState } from "react";
 const FAQS = [
     {
         q: "Which agents does it run?",
-        a: "Whatever you already have on your PATH. A node spawns the real CLI — codex today, with the dock reflecting which agents are installed and signed in. Identra doesn't wrap or re-implement the agent, so the Claude Code inside Identra is the Claude Code you already use, with your skills and config intact.",
+        a: "Whatever you already have on your PATH. A node spawns the real CLI, codex today, and the dock shows which agents you have installed and signed in. Identra doesn't wrap or re-implement the agent, so the Claude Code inside Identra is the Claude Code you already use, with your skills and config intact.",
     },
     {
         q: "Do you get my API keys?",
@@ -24,11 +24,11 @@ const FAQS = [
     },
     {
         q: "Is the memory actually working?",
-        a: "Partly, and the Status section says exactly where. The crate is built — extraction, dedupe by content hash and local embeddings all work — but it is not yet wired into the recall path in the UI. That's the next thing, not a shipped feature.",
+        a: "Partly. The crate is built, and extraction, dedupe by content hash and local embeddings all work. It just is not wired into the recall path in the UI yet. That's the next thing, not a shipped feature.",
     },
     {
         q: "What do I need to run it?",
-        a: "Rust and Cargo, the Tauri CLI, bun, just, and webkitgtk with its build deps. Run just doctor and it tells you what's missing. You also want codex on your PATH — without it a node still opens, it just says the binary is missing rather than pretending to work.",
+        a: "Rust and Cargo, the Tauri CLI, bun, just, and webkitgtk with its build deps. Run just doctor and it tells you what's missing. You also want codex on your PATH. Without it a node still opens, it just says the binary is missing rather than pretending to work.",
     },
     {
         q: "Is there a download?",

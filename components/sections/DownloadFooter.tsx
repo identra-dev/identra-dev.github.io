@@ -40,8 +40,8 @@ export function DownloadFooter() {
                         Run it on your machine.
                     </h2>
                     <p className="mt-5 text-base font-medium text-muted-foreground leading-relaxed max-w-xl mx-auto">
-                        No packaged build yet — you build it from source, and it takes a minute the
-                        first time while the Rust side compiles. Linux today, macOS in progress.
+                        No packaged build yet, so you build it from source, and the first build
+                        takes a minute while the Rust side compiles. Linux today, macOS in progress.
                     </p>
                 </motion.div>
 
@@ -89,7 +89,7 @@ export function DownloadFooter() {
             <footer className="relative z-10 mt-24 w-full max-w-5xl px-6">
                 <div className="neu flex flex-col items-center gap-6 rounded-full bg-background px-8 py-5 sm:flex-row sm:justify-between">
                     <div className="flex items-center gap-2.5">
-                        <Image src="/identra.svg" alt="" width={22} height={22} className="rounded-md" />
+                        <Image src="/identra.svg" alt="" width={30} height={30} className="rounded-lg" />
                         <span className="font-display text-sm font-bold text-foreground">Identra</span>
                         <span className="font-mono text-[10px] text-muted-foreground">Apache-2.0</span>
                     </div>
