@@ -109,7 +109,7 @@ export function Hero() {
                             transition={{ duration: 0.8, delay: 0.9 }}
                             className="mt-7 font-mono text-xs font-medium text-muted-foreground/80"
                         >
-                            Apache-2.0 · No accounts, no telemetry · Linux today, macOS in progress
+                            Apache-2.0 · No accounts, no telemetry · Linux and macOS (Apple Silicon)
                         </motion.p>
                     </div>
 

@@ -1,16 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, Copy, Github } from "lucide-react";
+import { Check, Copy, Download } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { MagneticButton } from "@/components/ui/MagneticButton";
-import { GITHUB_URL, QUICK_START } from "@/lib/site";
+import { GITHUB_URL, QUICK_START, RELEASES_URL } from "@/lib/site";
 
 /*
-  There are no releases yet, so there is no download button. Build from source is
-  the honest ask. When tauri-action starts publishing .AppImage/.deb/.dmg to a
-  GitHub Release (see identra-ops/DISTRIBUTION.md), swap the primary CTA for it.
+  tauri-action publishes the AppImage, .deb, .rpm, and the Apple Silicon .dmg to
+  GitHub Releases now, so the download is the primary CTA and build-from-source
+  is the second path for people who want it.
 */
 const REQUIREMENTS = [
     "Rust + Cargo, the Tauri CLI, bun, and just",
@@ -40,8 +40,9 @@ export function DownloadFooter() {
                         Run it on your machine.
                     </h2>
                     <p className="mt-5 text-base font-medium text-muted-foreground leading-relaxed max-w-xl mx-auto">
-                        No packaged build yet, so you build it from source, and the first build
-                        takes a minute while the Rust side compiles. Linux today, macOS in progress.
+                        Download it for Linux or macOS (Apple Silicon), put codex on your
+                        PATH, and drop your first agent on the canvas. Installed builds keep
+                        themselves current from each release.
                     </p>
                 </motion.div>
 
@@ -56,13 +57,13 @@ export function DownloadFooter() {
                 >
                     <MagneticButton strength={0.4}>
                         <a
-                            href={GITHUB_URL}
+                            href={RELEASES_URL}
                             target="_blank"
                             rel="noreferrer"
                             className="neu-primary inline-flex h-12 items-center justify-center rounded-full px-8 text-base font-bold"
                         >
-                            <Github className="mr-2 h-4 w-4" aria-hidden />
-                            View on GitHub
+                            <Download className="mr-2 h-4 w-4" aria-hidden />
+                            Download Identra
                         </a>
                     </MagneticButton>
                 </motion.div>
@@ -75,7 +76,7 @@ export function DownloadFooter() {
                     className="mt-14 space-y-2 text-center"
                 >
                     <li className="font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground mb-4">
-                        You&apos;ll need
+                        To build from source you&apos;ll need
                     </li>
                     {REQUIREMENTS.map((req) => (
                         <li key={req} className="text-sm font-medium text-muted-foreground">
@@ -136,7 +137,7 @@ function QuickStart() {
             className="mt-12 overflow-hidden rounded-2xl bg-[#1a1618] p-1.5 text-left shadow-[8px_8px_18px_var(--neu-dark),-8px_-8px_18px_var(--neu-light)]"
         >
             <div className="flex items-center justify-between rounded-t-xl border-b border-white/[0.06] px-4 py-2.5">
-                <span className="font-mono text-[10px] text-white/50">quick start</span>
+                <span className="font-mono text-[10px] text-white/50">or build from source</span>
                 <button
                     onClick={copy}
                     className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 font-mono text-[10px] text-white/60 transition-colors hover:bg-white/10 hover:text-white/90"
